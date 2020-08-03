@@ -3,7 +3,8 @@ import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native
 import { connect } from 'react-redux';
 import Word from './Word';
 import Filter from './Filter';
-import Header from './Header'
+import Header from './Header';
+import From from './From'
 
 
 class Main extends Component {
@@ -18,7 +19,8 @@ class Main extends Component {
         return (
             <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: '#36A3F0' }}>
                 <Header/>
-                <View style={{ flex: 10 }}>
+                <View style={{ flex: 10 ,}}>
+                    {this.props.myIsAdding?<From/>:null}
                     <FlatList
                         data={this.getWordList()}
                         renderItem={({ item }) => <Word myWord={item} />}
@@ -36,7 +38,8 @@ class Main extends Component {
 function mapStateToProps(state) {
     return {
         myFilter: state.filterStatus,
-        myWords: state.arrWords
+        myWords: state.arrWords,
+        myIsAdding:state.isAdding
     };
 }
 

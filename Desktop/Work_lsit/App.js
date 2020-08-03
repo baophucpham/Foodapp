@@ -62,11 +62,38 @@ const reducer = (state = defaultState, action) => {
       return { ...state, filterStatus: 'NEED_PRACICE' };
     case 'TOGGLE_MEMORIZED':
       return {
-        ...state, arrWords: state.arrWords.map(e => {
+        ...state,
+        arrWords: state.arrWords.map(e => {
           if (e.id !== action.id) return e;
           return { ...e, memorized: !e.memorized };
         })
       };
+    case 'TOGGLE_SHOW':
+      return {
+        ...state,
+        arrWords: state.arrWords.map(e => {
+          if (e.id !== action.id) return e;
+          return { ...e, isShow: !e.isShow };
+        })
+      };
+    case 'TOGGLE_IS_ADDING':
+      return {
+        ...state,
+        isAdding: !state.isAdding
+
+      };
+    case 'ADD_WORD':
+      return {
+        ...state,
+        arrWords: [{
+          id: state.arrWords.length,
+          en: action.en,
+          vn: action.vn,
+          memorized: false,
+          isShow: false
+        }].concat(state.arrWords)
+      };
+
 
     default:
       break;

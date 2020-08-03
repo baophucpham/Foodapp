@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
+
+
 class Word extends Component {
     memorizedWord() {
         this.props.dispatch({
@@ -8,16 +10,23 @@ class Word extends Component {
             id: this.props.myWord.id
         });
     }
+    toggleShowWord() {
+        this.props.dispatch({
+            type: 'TOGGLE_SHOW',
+            id: this.props.myWord.id
+        });
+    }
 
 
     render() {
-        const { en, vn, memorized } = this.props.myWord;
+        const { en, vn, memorized,isShow } = this.props.myWord;
         const textDecorationLine = memorized ? 'line-through' : 'none';
         const memorizedButtonText = memorized ? 'forget' : 'memorized';
+        const meaning = isShow ? vn : '-------------';
         return (
             <View style={styles.container}>
                 <Text style={{ textDecorationLine }}>{en}</Text>
-                <Text>{vn}</Text>
+                <Text>{meaning}</Text>
                 <View style={styles.controller}>
                     <TouchableOpacity
                         style={styles.button}
@@ -25,7 +34,9 @@ class Word extends Component {
                     >
                         <Text>{memorizedButtonText}</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.button}>
+                    <TouchableOpacity
+                        style={styles.button}
+                        onPress={this.toggleShowWord.bind(this)}>
                         <Text>show</Text>
                     </TouchableOpacity>
                 </View>

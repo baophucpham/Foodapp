@@ -1,18 +1,25 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
 
-export default class Header extends Component{
+class Header extends Component{
     render(){
         return(
             <View style={styles.header}>
                     <Text style={{ fontSize: 20, color: 'white' }}>My Work</Text>
                     <TouchableOpacity>
-                        <Text style={{ fontSize: 20, color: 'white' }}>+</Text>
+                        <Text 
+                        style={{ fontSize: 20, color: 'white' }}
+                        onPress={()=>this.props.dispatch({type:'TOGGLE_IS_ADDING'})}
+                        >+</Text>
                     </TouchableOpacity>
                 </View>
         )
     }
 }
+
+export default connect()(Header);
+
 const styles = StyleSheet.create({
     header: {
         flex: 1,

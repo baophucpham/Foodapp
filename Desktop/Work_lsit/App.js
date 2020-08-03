@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, { Component } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -15,100 +15,66 @@ import {
   Text,
   StatusBar,
 } from 'react-native';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import Main from './src/component/Main'
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+export default class App extends Component {
+  render() {
+    return (
+      <Provider store={store}>
+        <Main />
+      </Provider>
+    )
+  }
+}
 
-const App: () => React$Node = () => {
-  return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </>
-  );
+//default state
+const defaultState = {
+  arrWords: [
+    { id: 1, en: 'acrion', vn: 'hành động', memorized: true, isShow: false },
+    { id: 2, en: 'crown', vn: 'vương miện', memorized: true, isShow: true },
+    { id: 3, en: 'actor', vn: 'diễn viên', memorized: false, isShow: false },
+    { id: 4, en: 'activity', vn: 'hoạt động', memorized: true, isShow: false },
+    { id: 5, en: 'active', vn: 'chủ động', memorized: false, isShow: false },
+    { id: 6, en: 'bath', vn: 'tắm', memorized: false, isShow: false },
+    { id: 7, en: 'bedroom', vn: 'phòng ngủ', memorized: false, isShow: false },
+    { id: 8, en: 'yard', vn: 'sân', memorized: true, isShow: false },
+    { id: 9, en: 'yesterday', vn: 'hôm qua', memorized: true, isShow: false },
+    { id: 10, en: 'young', vn: 'trẻ', memorized: true, isShow: false },
+    { id: 11, en: 'abandon', vn: 'từ bỏ', memorized: true, isShow: false },
+    { id: 12, en: 'abouve', vn: 'ở trên', memorized: true, isShow: false },
+    { id: 13, en: 'arrange', vn: 'sắp xếp', memorized: true, isShow: false },
+  ],
+  filterStatus: 'SHOW_ALL',
+  isAdding: false,
 };
 
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
-});
 
-export default App;
+//reducer => tien doan action
+const reducer = (state = defaultState, action) => {
+  switch (action.type) {
+    case 'FILTER_SHOW_ALL':
+      return { ...state, filterStatus: 'SHOW_ALL' };
+    case 'FILTER_MEMORIZED':
+      return { ...state, filterStatus: 'MEMORIZED' };
+    case 'FILTER_NEED_PRACTICE':
+      return { ...state, filterStatus: 'NEED_PRACICE' };
+    case 'TOGGLE_MEMORIZED':
+      return {
+        ...state, arrWords: state.arrWords.map(e => {
+          if (e.id !== action.id) return e;
+          return { ...e, memorized: !e.memorized };
+        })
+      };
+
+    default:
+      break;
+  }
+  return state;
+}
+
+
+//tao ra store
+const store = createStore(reducer);
+//tich hop ung dung voi react

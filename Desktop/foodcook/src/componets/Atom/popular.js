@@ -1,74 +1,74 @@
 import React from 'react';
-import {View, Text, StyleSheet,FlatList,SafeAreaView,TouchableOpacity} from "react-native";
+import { View, Text, Image, StyleSheet, FlatList, SafeAreaView, TouchableOpacity } from "react-native";
 import * as imageURl from '../../Assets/images/imageURL';
+import Data from '../../Assets/images/data_popular';
 
-export default class Popular extends React.Component{
-    constructor(props){
+export default class Popular extends React.Component {
+    constructor(props) {
         super(props);
-        this.state={
-            Data:[{
-                name: 'Alex Sander',
-                rating: 5,
-                comment: 'Good',
-                image:("imageURl/avatar1,")
-            },
-            {
-                name: 'Trong Thanh',
-                rating: 4,
-                comment: 'Ok',
-                image: ("imageURl/avatar2")
-            },
-            {
-                name: 'Huynh Nhu',
-                rating: 2,
-                comment: 'Bad',
-                image:("imageURl/avatar3")
-            },
-            {
-                name: 'Trong That',
-                rating: 5,
-                comment: 'good food good mood',
-                image:("imageURl/avatar4")
-            },
-            {
-                name: 'Ngoc Trai',
-                rating: 4,
-                comment: 'Very good',
-                image:("imageURl/avatar2")
-            },
-            {
-                name: 'Hai Bang',
-                rating: 2,
-                comment: 'normal',
-                image:("imageURl/avatar4")
-            }]
+        this.initData = Data;
+        this.state = {
+            Data: this.initData
         }
     }
-    render(){
+
+    _rating(item) {
+        let rating = [];
+        for (i = 0; i < item; i++) {
+            rating.push(
+                <Image
+                    source={imageURl.star2}
+                    style={{ width: 15, height: 15, marginRight: 3 }}
+                    resizeMode="cover"
+                />
+            )
+        }
+        return rating;
+    }
+
+
+    ItemSeparatorComponent = () => {
         return(
+            <View
+            style={{height:30}}
+            />
+        )
+    }
+
+    render() {
+        return (
             <View style={styles.container}>
                 <View style={styles.flatList}>
                     <FlatList data={this.state.data}
                         renderItem={this.renderItem}
-                        keyExtractor={(item, index)=>index.toString()}
-                        ItemSeparatorComponent={this.ItemSeparatorComponent}/>
+                        keyExtractor={(item, index) => index.toString()}
+                        ItemSeparatorComponent={this.ItemSeparatorComponent}
+                        showsVerticalScrollIndicator={false}
+                        numColumns={3} />
                 </View>
                 <SafeAreaView style={styles.containerList}>
                     <FlatList
                         data={this.state.Data}
                         renderItem={({ item }) =>
-                            <View style={styles.dong}>
+                            <View style={styles.item}>
                                 <TouchableOpacity
-                                onPress={()=>{this.props.navigation.navigate('Detail')}} 
-                                style={styles.Buttom}>
-                                <Text style={styles.text}>{item.name}</Text>
-                                <Text style={styles.text}>{item.rating}</Text>
-                                <Text style={styles.text}>{item.comment}</Text>
+                                    style={styles.Buttom}>
+                                    <Image
+                                        source={item.image}
+                                        style={styles.image}
+                                    />
+                                    <Text numberOfLines={1} style={styles.name}>{item.name}</Text>
+                                    <View style={{ flexDirection: 'row' }}>
+                                        {this._rating(item.rating)}
+                                    </View>
+                                    <Text
+                                        numberOfLines={2}
+                                        style={styles.comment}
+                                    >"{item.comment}"</Text>
                                 </TouchableOpacity>
                             </View>
                         }
-                        horizontal={false}
-                        numColumns={2}
+                        numColumns={3}
                     />
                 </SafeAreaView>
             </View>
@@ -76,24 +76,32 @@ export default class Popular extends React.Component{
     }
 }
 var styles = StyleSheet.create({
-    container:{
-        flex:1,
-        backgroundColor:'white',
+    container: {
+        flex: 1,
+        backgroundColor: 'white',
+        marginTop:20,
+        marginBottom:5,
     },
-    containerList:{
-        flex:1,
+    containerList: {
+        flex: 1,
     },
-    dong: {
-        backgroundColor:'#2EA342',
-        width:145,
-        height:145,
-        borderBottomWidth: 1,
-        padding: 30,
-        marginVertical: 9,
-        marginHorizontal: 4,
-        borderRadius:100,
+    item: {
+        flex: 1,
+        alignItems: 'center',
     },
-    text:{
-        textAlign:"center"
+    image: {
+        width: 80,
+        height: 80,
+        borderRadius: 40,
+        borderWidth: 3,
+        borderColor: 'green',
+    },
+    name: {
+        color: 'green',
+        fontWeight: 'bold',
+    },
+    comment:{
+        fontStyle:'italic',
+        marginTop:5,
     },
 });

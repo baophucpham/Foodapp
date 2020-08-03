@@ -1,10 +1,22 @@
 import React from 'react';
-import { View, Text, ImageBackground, StyleSheet, Dimensions, Image, StatusBar, TextInput, Button, Alert } from 'react-native';
+import { View, Text, ImageBackground, StyleSheet, Dimensions, Image, TouchableOpacity, ScrollView } from 'react-native';
 import * as imageURl from '../../Assets/images/imageURL';
 import IoniCon from "react-native-vector-icons/Ionicons";
+import Data from '../../Assets/images/data_all';
 import { color } from 'react-native-reanimated';
 
 export default class DentailComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      item: this.props.route.params.item
+    }
+  }
+
+
+
+
+
   render() {
     return (
       <View style={styles.container}>
@@ -16,42 +28,32 @@ export default class DentailComponent extends React.Component {
 
           <View style={styles.image_Container}>
             <Image
-              source={imageURl.hutieu}
+              source={this.state.item.image}
               style={styles.images} />
           </View>
 
         </ImageBackground>
+
         <View style={styles.footer}>
           <View style={styles.status}>
             <Text style={{ color: 'green' }}>AVALIABLE</Text>
           </View>
-          <TextInput style={styles.input}
-            placeholder='price'
-          />
-          <TextInput style={styles.name}
-            placeholder='name chef'
-          />
-          <TextInput style={styles.formula}
-            placeholder='formula'
-          />
-          <View style={styles.fixToText}>
-            <Button
-              color='#5DB542'
-              title="ADD"
-              onPress={() => Alert.alert('do you want add new')}
-            />
-            <Button
-              color='#5DB542'
-              title="EDIT"
-              onPress={() => Alert.alert('do you want edit')}
-            />
-            <Button
-              color='#5DB542'
-              title="DELET"
-              onPress={() => Alert.alert('do you want delete')}
-            />
-          </View>
+          <ScrollView style={styles.scroll}>
+            <Text style={styles.textPrice}>{this.state.item.price}</Text>
+            <Text numberOfLines={2} style={styles.textName}></Text>
+            <Text>Nấm Rơm Kho Tiêu Chay với vị đậm đà, là một trong những món chay quen thuộc trong ngày chay thuần Việt. Cách làm nấm rơm kho tiêu không khó, vị nấm ngọt tự nhiên, kết hợp cùng các gia vị đơn thuần, tạo nên món ăn ngon, vừa chống ngán cho bữa cơm ngán thịt hay ngày chay, mà còn rất tốt cho sức khỏe. Ngày bận rộn, nấm rơm kho tiêu là lựa chọn lý tưởng đấy.</Text>
+            <View>
+              <TouchableOpacity
+                onPress={() => this.props.navigation.navigate("Edit", {
+                  item: this.state.item
+                })}
+                style={styles.buttom}>
+                <Text style={styles.textButtom}>EDIT</Text>
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
         </View>
+
       </View>
     )
   }
@@ -90,6 +92,9 @@ var styles = StyleSheet.create({
     paddingVertical: 3,
     borderColor: 'green'
   },
+  scroll: {
+    borderRadius: 12
+  },
   input: {
     width: 40,
     justifyContent: 'center',
@@ -101,32 +106,25 @@ var styles = StyleSheet.create({
     marginVertical: 8,
     borderColor: 'green'
   },
-  name: {
-    width: 270,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderRadius: 50,
-    paddingVertical: 3,
-    borderColor: 'green',
-    marginHorizontal: 20,
+  textPrice: {
+    color: 'green',
+    fontWeight: 'bold',
+    fontSize: 40,
+    marginTop: 20,
   },
-  formula: {
-    height: 100,
-    width: 270,
-    borderWidth: 1,
-    borderRadius: 20,
-    paddingVertical: 3,
-    borderColor: 'green',
-    marginHorizontal: 20,
-    marginVertical: 8,
+  textName: {
+    color: '#3e3c3e',
+    fontWeight: 'bold',
+    fontSize: 45,
+    marginTop: 5,
   },
-  fixToText: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 30,
-    paddingVertical: 3,
-    borderRadius: 20,
+  buttom: {
+    alignItems: 'center'
   },
-
+  textButtom: {
+    color: 'green',
+    fontWeight: 'bold',
+    fontSize: 25,
+    padding: 30
+  },
 })

@@ -1,76 +1,53 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList, SafeAreaView, TouchableOpacity, Alert } from "react-native";
+import { View, Text, StyleSheet, FlatList, SafeAreaView, TouchableOpacity, Alert, Image } from "react-native";
 import * as imageURl from '../../Assets/images/imageURL';
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack"
 import DentailComponent from "../molecules/Detail";
+import Data from '../../Assets/images/data_menu';
 
 export default class Menu extends React.Component {
     constructor(props) {
         super(props);
+        this.initData = Data;
         this.state = {
-            Data: [
-                {
-                    type: 'Dessert',
-                    color: '#f7931e',
-                    data: [
-                        {
-                            name: 'Stewed Mushrooms',
-                            image: ("imageURl/namkho"),
-                            price: "$12"
-                        },
-                        {
-                            name: 'Jackfruit Fried',
-                            image: ("imageURl/mitkho"),
-                            price: "$15"
-                        }
-                    ]
-                },
-                {
-                    type: 'Main course',
-                    color: '#39b54a',
-                    data: [
-                        {
-                            name: 'Noodles',
-                            image: ("mageURl/hutieu"),
-                            rating: 4,
-                            price: "$20"
-                        },
-                        {
-                            name: 'Beef',
-                            image: ("mageURl/cuonlalot"),
-                            rating: 2,
-                            price: "$12"
-                        },
-                        {
-                            name: 'Salad dressing',
-                            image: ("mageURl/cuondiep"),
-                            rating: 5,
-                            price: "$13"
-                        },
-                    ]
-                },
-                {
-                    type: 'Other',
-                    color: '#ed1e79',
-                    data: [
-                        {
-                            name: 'Salad dressing',
-                            image: ("mageURl/cuondiep"),
-                            price: "$13"
-                        },
-                        {
-                            name: 'Jackfruit warehouse',
-                            image: ("imageURl/mitkho"),
-                            price: "$15"
-                        }
-                    ]
-                },
-            ]
+            Data: this.initData
         }
+
     }
+
+    renderItem_type = ({ item }) => {
+        return (
+            <TouchableOpacity 
+            style={styles.item_type}
+            onPress={()=>this.props.navigation.navigate("Detail", {
+                item:item
+            })} >
+                <Image
+                    source={item.image}
+                    style={styles.image}
+                />
+                <Text style={styles.name}>{item.name}</Text>
+            </TouchableOpacity>
+        )
+    }
+
+    ItemSeparatorComponent = () => {
+        return(
+            <View
+            style={{height:20}}
+            />
+        )
+    }
+
+    ItemSeparatorComponent_type = () => {
+        return (
+            <View style={{ width: 10 }} />
+        )
+    }
+
     render() {
-        const Detail = ({})
+
         return (
             <View style={styles.container}>
 
@@ -79,19 +56,32 @@ export default class Menu extends React.Component {
                         data={this.state.data}
                         renderItem={this.renderItem}
                         keyExtractor={(item, index) => index.toString()}
-                        ItemSeparatorComponent={this.ItemSeparatorComponent} />
+                        ItemSeparatorComponent={this.ItemSeparatorComponent}
+                        showsVerticalScrollIndicator={false} />
                 </View>
 
                 <SafeAreaView style={styles.containerList}>
                     <FlatList
                         data={this.state.Data}
                         renderItem={({ item }) =>
-                            <View style={styles.dong}>
-                                <TouchableOpacity
-                                    onPress={()=>{this.props.navigation.navigate('Detail')}}
-                                    style={styles.Buttom}>
-                                    <Text style={styles.text}>{item.type}</Text>
-                                </TouchableOpacity>
+                            <View style={{ flex: 1 }}>
+
+                                <Text style={[styles.type,
+                                { color: item.color }]}>{item.type}</Text>
+                                <View style={[styles.item, {
+                                    backgroundColor: item.color
+                                }]}>
+                                    <FlatList
+                                        data={item.data}
+                                        renderItem={this.renderItem_type}
+                                        keyExtractor={(item, index) => index.toString()}
+                                        horizontal={true}
+                                        showsVerticalScrollIndicator={false}
+                                        ItemSeparatorComponent={this.ItemSeparatorComponent_type}
+                                    >
+                                    </FlatList>
+                                </View>
+
                             </View>
                         } />
                 </SafeAreaView>
@@ -105,21 +95,40 @@ export default class Menu extends React.Component {
 var styles = StyleSheet.create({
     container: {
         flex: 1,
+        marginTop:10,
+        marginBottom:10,
         backgroundColor: 'white',
     },
     containerList: {
         flex: 1,
 
     },
-    dong: {
-        backgroundColor: '#2EA342',
-        borderBottomWidth: 1,
-        padding: 30,
-        marginVertical: 8,
-        marginHorizontal: 0,
-        borderRadius: 15,
-    },
-    text: {
+    type: {
+        fontSize: 20,
+        fontWeight: 'bold',
         textAlign: "center"
+    },
+    item: {
+        marginTop: 10,
+        flexDirection: 'row',
+        paddingHorizontal: 15,
+        paddingVertical: 10,
+        borderRadius: 10,
+    },
+    item_type: {
+        flex: 1,
+        alignItems: 'center',
+    },
+    image: {
+        width: 80,
+        height: 80,
+        borderRadius: 40,
+        borderWidth: 2,
+        borderColor: 'white',
+    },
+    name: {
+        marginTop: 12,
+        color: 'white',
+        fontSize: 16,
     },
 });

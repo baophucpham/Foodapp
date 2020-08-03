@@ -1,31 +1,35 @@
-[
+
+import nam from "../images/namkho.jpg"
+
+export default Data = [
 	{
             name:'Stewed Mushrooms',
-            image: require("./asset/namkho.jpg"),
+            image: nam,
             rating: 3,
-            price: "$12"
+            price: "$12",
+            formula:{},
         },
         {
             name:'Jackfruit Fried',
-            image: require("./asset/mitkho.jpg"),
+            image: require("./mitkho.jpg"),
             rating: 5,
             price: "$15"
         },
         {
             name:'Noodles',
-            image: require("./asset/hutieu.jpg"),
+            image: require("./hutieu.jpg"),
             rating: 4,
             price: "$20"
         },
         {
             name:'Beef',
-            image: require("./asset/cuonlalot.jpg"),
+            image: require("./cuonlalot.jpg"),
             rating: 2,
             price: "$12"
         },
         {
             name:'Salad dressing',
-            image: require("./asset/cuondiep.jpg"),
+            image: require("./cuondiep.jpg"),
             rating: 5,
             price: "$13"
         },

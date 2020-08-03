@@ -1,16 +1,16 @@
-[
+export default Data =  [
     {
         type: 'Dessert',
         color: '#f7931e',
         data:[
             {
                 name:'Stewed Mushrooms',
-                image: require("./asset/namkho.jpg"),
+                image: require("./namkho.jpg"),
                 price: "$12"
             },
             {
                 name:'Jackfruit Fried',
-                image: require("./asset/mitkho.jpg"),
+                image: require("./mitkho.jpg"),
                 price: "$15"
             }
         ]
@@ -21,19 +21,19 @@
         data:[
             {
                 name:'Noodles',
-                image: require("./asset/hutieu.jpg"),
+                image: require("./hutieu.jpg"),
                 rating: 4,
                 price: "$20"
             },
             {
                 name:'Beef',
-                image: require("./asset/cuonlalot.jpg"),
+                image: require("./cuonlalot.jpg"),
                 rating: 2,
                 price: "$12"
             },
             {
                 name:'Salad dressing',
-                image: require("./asset/cuondiep.jpg"),
+                image: require("./cuondiep.jpg"),
                 rating: 5,
                 price: "$13"
             },
@@ -45,12 +45,12 @@
         data:[
             {
                 name:'Salad dressing',
-                image: require("./asset/cuondiep.jpg"),
+                image: require("./cuondiep.jpg"),
                 price: "$13"
             },
             {
                 name:'Jackfruit warehouse',
-                image: require("./asset/mitkho.jpg"),
+                image: require("./mitkho.jpg"),
                 price: "$15"
             }
         ]

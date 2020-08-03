@@ -3,12 +3,12 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 platform :ios, '10.0'
 
-target 'todolist' do
+target 'ToDoList' do
   config = use_native_modules!
 
   use_react_native!(:path => config["reactNativePath"])
 
-  target 'todolistTests' do
+  target 'ToDoListTests' do
     inherit! :complete
     # Pods for testing
   end
@@ -23,10 +23,10 @@ target 'todolist' do
   end
 end
 
-target 'todolist-tvOS' do
-  # Pods for todolist-tvOS
+target 'ToDoList-tvOS' do
+  # Pods for ToDoList-tvOS
 
-  target 'todolist-tvOSTests' do
+  target 'ToDoList-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end

@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-               BuildableName = "todolist-tvOS.app"
-               BlueprintName = "todolist-tvOS"
-               ReferencedContainer = "container:todolist.xcodeproj">
+               BuildableName = "ToDoList-tvOS.app"
+               BlueprintName = "ToDoList-tvOS"
+               ReferencedContainer = "container:ToDoList.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "todolist-tvOSTests.xctest"
-               BlueprintName = "todolist-tvOSTests"
-               ReferencedContainer = "container:todolist.xcodeproj">
+               BuildableName = "ToDoList-tvOSTests.xctest"
+               BlueprintName = "ToDoList-tvOSTests"
+               ReferencedContainer = "container:ToDoList.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "todolist-tvOS.app"
-            BlueprintName = "todolist-tvOS"
-            ReferencedContainer = "container:todolist.xcodeproj">
+            BuildableName = "ToDoList-tvOS.app"
+            BlueprintName = "ToDoList-tvOS"
+            ReferencedContainer = "container:ToDoList.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "todolist-tvOS.app"
-            BlueprintName = "todolist-tvOS"
-            ReferencedContainer = "container:todolist.xcodeproj">
+            BuildableName = "ToDoList-tvOS.app"
+            BlueprintName = "ToDoList-tvOS"
+            ReferencedContainer = "container:ToDoList.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
